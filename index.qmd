@@ -1,6 +1,250 @@
 ---
-title: "Taylor Swift Album Covers"
+title: "Album Cover Similarity Comparator"
 ---
+
+```{=html}
+<div class="card p-3 shadow-sm mb-4">
+  <h4>Compare Any Artist's Album Covers</h4>
+  <p class="text-muted mb-3">
+    Type an artist's name to fetch their albums from MusicBrainz, select one from the dropdown, and compare its color and shape similarity against their other albums.
+  </p>
+
+  <div class="row g-2 align-items-center mb-3">
+    <div class="col-auto">
+      <label for="artistInput" class="col-form-label fw-bold">Artist:</label>
+    </div>
+    <div class="col-sm-5 col-12">
+      <input type="text" id="artistInput" class="form-control" placeholder="e.g. Taylor Swift, Radiohead, The Beatles" value="Taylor Swift">
+    </div>
+    <div class="col-auto">
+      <button id="searchArtistBtn" class="btn btn-primary">Find Albums</button>
+    </div>
+  </div>
+
+  <div id="statusAlert" class="alert alert-info py-2" style="display:none;"></div>
+
+  <div id="selectorContainer" style="display:none;" class="mb-4">
+    <label for="albumSelect" class="form-label fw-bold">Select an album to compare against the others:</label>
+    <select id="albumSelect" class="form-select" style="max-width: 500px;"></select>
+  </div>
+
+  <div id="resultsArea" style="display:none;">
+    <div class="row mb-4">
+      <div class="col-md-4 text-center border-end">
+        <h5 class="fw-bold">Selected Album</h5>
+        <div id="selectedAlbumCard" class="card p-2 shadow-sm d-inline-block"></div>
+      </div>
+      <div class="col-md-8">
+        <h5 class="fw-bold">Ranked by Visual Similarity</h5>
+        <p class="text-muted small">Based on 16×16 downsampled color and layout similarity.</p>
+        <div id="similarAlbumsList" class="row g-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const artistInput = document.getElementById('artistInput');
+  const searchBtn = document.getElementById('searchArtistBtn');
+  const statusAlert = document.getElementById('statusAlert');
+  const selectorContainer = document.getElementById('selectorContainer');
+  const albumSelect = document.getElementById('albumSelect');
+  const resultsArea = document.getElementById('resultsArea');
+  const selectedAlbumCard = document.getElementById('selectedAlbumCard');
+  const similarAlbumsList = document.getElementById('similarAlbumsList');
+
+  let currentAlbums = [];
+  const vectorCache = {};
+
+  function setStatus(msg, type = 'info') {
+    if (!msg) {
+      statusAlert.style.display = 'none';
+      return;
+    }
+    statusAlert.className = `alert alert-${type} py-2`;
+    statusAlert.textContent = msg;
+    statusAlert.style.display = 'block';
+  }
+
+  function getPixelVector(url) {
+    if (vectorCache[url]) {
+      return Promise.resolve(vectorCache[url]);
+    }
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = 16;
+          canvas.height = 16;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, 16, 16);
+          const data = ctx.getImageData(0, 0, 16, 16).data;
+          const vec = [];
+          for (let i = 0; i < data.length; i += 4) {
+            vec.push(data[i] / 255, data[i+1] / 255, data[i+2] / 255);
+          }
+          vectorCache[url] = { img, vec };
+          resolve({ img, vec });
+        } catch (err) {
+          reject(err);
+        }
+      };
+      img.onerror = () => reject(new Error("Cover image unavailable"));
+      img.src = url;
+    });
+  }
+
+  function computeSimilarity(vecA, vecB) {
+    let sum = 0;
+    for (let i = 0; i < vecA.length; i++) {
+      sum += Math.abs(vecA[i] - vecB[i]);
+    }
+    const meanDiff = sum / vecA.length;
+    return Math.max(0, Math.min(100, Math.round((1.0 - meanDiff) * 1000) / 10));
+  }
+
+  async function searchArtist() {
+    const query = artistInput.value.trim();
+    if (!query) return;
+
+    setStatus(`Searching MusicBrainz for "${query}"...`, 'info');
+    selectorContainer.style.display = 'none';
+    resultsArea.style.display = 'none';
+    albumSelect.innerHTML = '';
+    currentAlbums = [];
+
+    try {
+      const res = await fetch(`https://musicbrainz.org/ws/2/artist/?query=artist:${encodeURIComponent(query)}&fmt=json`);
+      const data = await res.json();
+      if (!data.artists || data.artists.length === 0) {
+        setStatus(`No artist found matching "${query}".`, 'warning');
+        return;
+      }
+
+      const artist = data.artists[0];
+      setStatus(`Found "${artist.name}". Fetching studio albums...`, 'info');
+
+      const rgRes = await fetch(`https://musicbrainz.org/ws/2/release-group?artist=${artist.id}&type=album&limit=100&fmt=json`);
+      const rgData = await rgRes.json();
+      const rgs = rgData['release-groups'] || [];
+
+      // Filter primary albums and remove live/remixes if possible
+      const seenTitles = new Set();
+      const albums = [];
+      for (const rg of rgs) {
+        const secTypes = rg['secondary-types'] || [];
+        if (secTypes.includes('Live') || secTypes.includes('Remix') || secTypes.includes('Compilation')) {
+          continue;
+        }
+        const titleKey = rg.title.toLowerCase();
+        if (seenTitles.has(titleKey)) continue;
+        seenTitles.add(titleKey);
+
+        const year = rg['first-release-date'] ? rg['first-release-date'].substring(0, 4) : 'Unknown';
+        albums.push({
+          id: rg.id,
+          title: rg.title,
+          year: year,
+          coverUrl: `https://coverartarchive.org/release-group/${rg.id}/front-250.jpg`
+        });
+      }
+
+      albums.sort((a, b) => (a.year || '').localeCompare(b.year || ''));
+
+      if (albums.length === 0) {
+        setStatus(`No studio albums found for ${artist.name}.`, 'warning');
+        return;
+      }
+
+      currentAlbums = albums;
+      albumSelect.innerHTML = albums.map(a => `<option value="${a.id}">${a.title} (${a.year})</option>`).join('');
+      selectorContainer.style.display = 'block';
+      setStatus(`Loaded ${albums.length} albums for ${artist.name}. Select one below to compare!`, 'success');
+
+      // Trigger comparison for initial selection
+      compareSelected();
+    } catch (err) {
+      console.error(err);
+      setStatus('Error loading data from MusicBrainz. Please try again in a moment.', 'danger');
+    }
+  }
+
+  async function compareSelected() {
+    const selectedId = albumSelect.value;
+    const selected = currentAlbums.find(a => a.id === selectedId);
+    if (!selected) return;
+
+    setStatus(`Loading cover for "${selected.title}" and computing similarities...`, 'info');
+    resultsArea.style.display = 'block';
+
+    selectedAlbumCard.innerHTML = `
+      <img src="${selected.coverUrl}" class="img-fluid rounded shadow-sm mb-2" style="max-width: 200px;" onerror="this.src='https://placehold.co/200x200?text=No+Cover'">
+      <div class="fw-bold">${selected.title}</div>
+      <div class="text-muted small">${selected.year}</div>
+    `;
+
+    let selectedVectorData;
+    try {
+      selectedVectorData = await getPixelVector(selected.coverUrl);
+    } catch (err) {
+      setStatus(`Could not load cover image for "${selected.title}". It might not have cover art archived.`, 'warning');
+      similarAlbumsList.innerHTML = `<div class="col-12 text-muted">Cover image unavailable for comparison.</div>`;
+      return;
+    }
+
+    similarAlbumsList.innerHTML = `<div class="col-12 text-muted">Comparing other covers...</div>`;
+
+    const comparisons = [];
+    const others = currentAlbums.filter(a => a.id !== selectedId);
+
+    for (const other of others) {
+      try {
+        const otherData = await getPixelVector(other.coverUrl);
+        const sim = computeSimilarity(selectedVectorData.vec, otherData.vec);
+        comparisons.push({ album: other, similarity: sim, hasCover: true });
+      } catch (err) {
+        // Image not in archive
+        comparisons.push({ album: other, similarity: -1, hasCover: false });
+      }
+    }
+
+    comparisons.sort((a, b) => b.similarity - a.similarity);
+
+    similarAlbumsList.innerHTML = comparisons.map(c => {
+      const simText = c.hasCover ? `${c.similarity}% similar` : 'Cover unavailable';
+      const badgeClass = c.similarity >= 80 ? 'bg-success' : (c.similarity >= 65 ? 'bg-primary' : (c.similarity >= 50 ? 'bg-warning text-dark' : 'bg-secondary'));
+      return `
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100 p-2 shadow-sm text-center">
+            <img src="${c.album.coverUrl}" class="img-fluid rounded mb-2 mx-auto" style="height: 140px; object-fit: cover;" onerror="this.src='https://placehold.co/140x140?text=No+Cover'">
+            <div class="fw-bold small text-truncate" title="${c.album.title}">${c.album.title}</div>
+            <div class="text-muted small mb-2">${c.album.year}</div>
+            <div>
+              <span class="badge ${badgeClass}">${simText}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    setStatus('');
+  }
+
+  searchBtn.addEventListener('click', searchArtist);
+  artistInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') searchArtist();
+  });
+  albumSelect.addEventListener('change', compareSelected);
+
+  // Auto-search default on load
+  searchArtist();
+})();
+</script>
+```
+
 
 ```{r}
 #| label: setup
