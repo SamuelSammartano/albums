@@ -9,8 +9,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "albums",
+    "title": "Taylor Swift Album Covers",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "library(tidyverse)\n\nalbums &lt;- read_csv(\"data/albums.csv\")\nWe downloaded album covers for Taylor Swift’s studio albums from MusicBrainz."
+  },
+  {
+    "objectID": "index.html#visual-similarity-analysis",
+    "href": "index.html#visual-similarity-analysis",
+    "title": "Taylor Swift Album Covers",
+    "section": "Visual Similarity Analysis",
+    "text": "Visual Similarity Analysis\nTo compare color and layout, each cover was downsampled to a 16×16 pixel grid to capture broad shapes and color distribution. We then calculated the visual similarity percentage between every pair of albums.\n\nsimilarity &lt;- read_csv(\"data/album_similarity.csv\")\n\nRows: 225 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): album_1, album_2\ndbl (2): similarity_pct, distance\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n# Heatmap showing similarity between all pairs\nggplot(similarity, aes(x = album_1, y = album_2, fill = similarity_pct)) +\n  geom_tile(color = \"white\") +\n  scale_fill_viridis_c(name = \"Similarity (%)\") +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(angle = 45, hjust = 1, size = 9),\n    axis.text.y = element_text(size = 9)\n  ) +\n  labs(\n    title = \"Album Cover Visual Similarity Heatmap\",\n    x = NULL,\n    y = NULL\n  )\n\n\n\n\n\n\n\n\n\nTop 5 Most Similar Pairs\n\nsimilarity |&gt;\n  filter(album_1 &lt; album_2) |&gt;\n  arrange(desc(similarity_pct)) |&gt;\n  select(Album_1 = album_1, Album_2 = album_2, `Similarity (%)` = similarity_pct) |&gt;\n  head(5)\n\n# A tibble: 5 × 3\n  Album_1  Album_2                       `Similarity (%)`\n  &lt;chr&gt;    &lt;chr&gt;                                    &lt;dbl&gt;\n1 1989     Fearless                                  89.4\n2 1989     THE TORTURED POETS DEPARTMENT             87.2\n3 1989     Lover                                     86.1\n4 Fearless THE TORTURED POETS DEPARTMENT             86  \n5 Red      Red (Taylor’s Version)                    85.6"
   }
 ]
