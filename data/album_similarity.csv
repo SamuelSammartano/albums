@@ -1,0 +1,226 @@
+album_1,album_2,similarity_pct,distance
+Taylor Swift,Taylor Swift,100.0,0.0
+Taylor Swift,Fearless,69.5,0.305
+Taylor Swift,Speak Now,68.0,0.32
+Taylor Swift,Red,77.4,0.226
+Taylor Swift,1989,72.5,0.275
+Taylor Swift,reputation,66.4,0.336
+Taylor Swift,Lover,66.9,0.331
+Taylor Swift,folklore,71.7,0.283
+Taylor Swift,evermore,66.1,0.339
+Taylor Swift,Fearless (Taylor’s Version),79.2,0.208
+Taylor Swift,Red (Taylor’s Version),74.5,0.255
+Taylor Swift,Midnights,64.1,0.359
+Taylor Swift,Speak Now (Taylor’s Version),66.6,0.334
+Taylor Swift,1989 (Taylor’s Version),75.8,0.242
+Taylor Swift,THE TORTURED POETS DEPARTMENT,65.8,0.342
+Fearless,Taylor Swift,69.5,0.305
+Fearless,Fearless,100.0,0.0
+Fearless,Speak Now,74.0,0.26
+Fearless,Red,61.9,0.381
+Fearless,1989,89.4,0.106
+Fearless,reputation,77.8,0.222
+Fearless,Lover,82.3,0.177
+Fearless,folklore,78.4,0.216
+Fearless,evermore,62.4,0.376
+Fearless,Fearless (Taylor’s Version),70.5,0.295
+Fearless,Red (Taylor’s Version),60.9,0.391
+Fearless,Midnights,69.9,0.301
+Fearless,Speak Now (Taylor’s Version),49.1,0.509
+Fearless,1989 (Taylor’s Version),80.7,0.193
+Fearless,THE TORTURED POETS DEPARTMENT,86.0,0.14
+Speak Now,Taylor Swift,68.0,0.32
+Speak Now,Fearless,74.0,0.26
+Speak Now,Speak Now,100.0,0.0
+Speak Now,Red,63.6,0.364
+Speak Now,1989,79.5,0.205
+Speak Now,reputation,75.8,0.242
+Speak Now,Lover,76.9,0.231
+Speak Now,folklore,79.1,0.209
+Speak Now,evermore,72.5,0.275
+Speak Now,Fearless (Taylor’s Version),62.2,0.378
+Speak Now,Red (Taylor’s Version),63.1,0.369
+Speak Now,Midnights,74.5,0.255
+Speak Now,Speak Now (Taylor’s Version),50.4,0.496
+Speak Now,1989 (Taylor’s Version),77.0,0.23
+Speak Now,THE TORTURED POETS DEPARTMENT,75.8,0.242
+Red,Taylor Swift,77.4,0.226
+Red,Fearless,61.9,0.381
+Red,Speak Now,63.6,0.364
+Red,Red,100.0,0.0
+Red,1989,61.7,0.383
+Red,reputation,62.6,0.374
+Red,Lover,55.4,0.446
+Red,folklore,66.2,0.338
+Red,evermore,69.2,0.308
+Red,Fearless (Taylor’s Version),80.0,0.2
+Red,Red (Taylor’s Version),85.6,0.144
+Red,Midnights,66.3,0.337
+Red,Speak Now (Taylor’s Version),74.3,0.257
+Red,1989 (Taylor’s Version),71.3,0.287
+Red,THE TORTURED POETS DEPARTMENT,57.4,0.426
+1989,Taylor Swift,72.5,0.275
+1989,Fearless,89.4,0.106
+1989,Speak Now,79.5,0.205
+1989,Red,61.7,0.383
+1989,1989,100.0,0.0
+1989,reputation,80.4,0.196
+1989,Lover,86.1,0.139
+1989,folklore,83.9,0.161
+1989,evermore,67.5,0.325
+1989,Fearless (Taylor’s Version),68.8,0.312
+1989,Red (Taylor’s Version),60.2,0.398
+1989,Midnights,74.2,0.258
+1989,Speak Now (Taylor’s Version),48.5,0.515
+1989,1989 (Taylor’s Version),84.7,0.153
+1989,THE TORTURED POETS DEPARTMENT,87.2,0.128
+reputation,Taylor Swift,66.4,0.336
+reputation,Fearless,77.8,0.222
+reputation,Speak Now,75.8,0.242
+reputation,Red,62.6,0.374
+reputation,1989,80.4,0.196
+reputation,reputation,100.0,0.0
+reputation,Lover,79.6,0.204
+reputation,folklore,79.9,0.201
+reputation,evermore,69.1,0.309
+reputation,Fearless (Taylor’s Version),61.2,0.388
+reputation,Red (Taylor’s Version),60.5,0.395
+reputation,Midnights,77.6,0.224
+reputation,Speak Now (Taylor’s Version),48.1,0.519
+reputation,1989 (Taylor’s Version),79.3,0.207
+reputation,THE TORTURED POETS DEPARTMENT,78.0,0.22
+Lover,Taylor Swift,66.9,0.331
+Lover,Fearless,82.3,0.177
+Lover,Speak Now,76.9,0.231
+Lover,Red,55.4,0.446
+Lover,1989,86.1,0.139
+Lover,reputation,79.6,0.204
+Lover,Lover,100.0,0.0
+Lover,folklore,79.8,0.202
+Lover,evermore,62.3,0.377
+Lover,Fearless (Taylor’s Version),61.2,0.388
+Lover,Red (Taylor’s Version),54.0,0.46
+Lover,Midnights,71.8,0.282
+Lover,Speak Now (Taylor’s Version),41.0,0.59
+Lover,1989 (Taylor’s Version),80.8,0.192
+Lover,THE TORTURED POETS DEPARTMENT,82.5,0.175
+folklore,Taylor Swift,71.7,0.283
+folklore,Fearless,78.4,0.216
+folklore,Speak Now,79.1,0.209
+folklore,Red,66.2,0.338
+folklore,1989,83.9,0.161
+folklore,reputation,79.9,0.201
+folklore,Lover,79.8,0.202
+folklore,folklore,100.0,0.0
+folklore,evermore,75.1,0.249
+folklore,Fearless (Taylor’s Version),66.4,0.336
+folklore,Red (Taylor’s Version),65.3,0.347
+folklore,Midnights,76.3,0.237
+folklore,Speak Now (Taylor’s Version),55.6,0.444
+folklore,1989 (Taylor’s Version),81.9,0.181
+folklore,THE TORTURED POETS DEPARTMENT,78.6,0.214
+evermore,Taylor Swift,66.1,0.339
+evermore,Fearless,62.4,0.376
+evermore,Speak Now,72.5,0.275
+evermore,Red,69.2,0.308
+evermore,1989,67.5,0.325
+evermore,reputation,69.1,0.309
+evermore,Lover,62.3,0.377
+evermore,folklore,75.1,0.249
+evermore,evermore,100.0,0.0
+evermore,Fearless (Taylor’s Version),62.9,0.371
+evermore,Red (Taylor’s Version),69.6,0.304
+evermore,Midnights,78.3,0.217
+evermore,Speak Now (Taylor’s Version),61.9,0.381
+evermore,1989 (Taylor’s Version),73.0,0.27
+evermore,THE TORTURED POETS DEPARTMENT,64.3,0.357
+Fearless (Taylor’s Version),Taylor Swift,79.2,0.208
+Fearless (Taylor’s Version),Fearless,70.5,0.295
+Fearless (Taylor’s Version),Speak Now,62.2,0.378
+Fearless (Taylor’s Version),Red,80.0,0.2
+Fearless (Taylor’s Version),1989,68.8,0.312
+Fearless (Taylor’s Version),reputation,61.2,0.388
+Fearless (Taylor’s Version),Lover,61.2,0.388
+Fearless (Taylor’s Version),folklore,66.4,0.336
+Fearless (Taylor’s Version),evermore,62.9,0.371
+Fearless (Taylor’s Version),Fearless (Taylor’s Version),100.0,0.0
+Fearless (Taylor’s Version),Red (Taylor’s Version),80.2,0.198
+Fearless (Taylor’s Version),Midnights,60.7,0.393
+Fearless (Taylor’s Version),Speak Now (Taylor’s Version),70.7,0.293
+Fearless (Taylor’s Version),1989 (Taylor’s Version),72.6,0.274
+Fearless (Taylor’s Version),THE TORTURED POETS DEPARTMENT,64.3,0.357
+Red (Taylor’s Version),Taylor Swift,74.5,0.255
+Red (Taylor’s Version),Fearless,60.9,0.391
+Red (Taylor’s Version),Speak Now,63.1,0.369
+Red (Taylor’s Version),Red,85.6,0.144
+Red (Taylor’s Version),1989,60.2,0.398
+Red (Taylor’s Version),reputation,60.5,0.395
+Red (Taylor’s Version),Lover,54.0,0.46
+Red (Taylor’s Version),folklore,65.3,0.347
+Red (Taylor’s Version),evermore,69.6,0.304
+Red (Taylor’s Version),Fearless (Taylor’s Version),80.2,0.198
+Red (Taylor’s Version),Red (Taylor’s Version),100.0,0.0
+Red (Taylor’s Version),Midnights,65.2,0.348
+Red (Taylor’s Version),Speak Now (Taylor’s Version),75.0,0.25
+Red (Taylor’s Version),1989 (Taylor’s Version),69.2,0.308
+Red (Taylor’s Version),THE TORTURED POETS DEPARTMENT,55.5,0.445
+Midnights,Taylor Swift,64.1,0.359
+Midnights,Fearless,69.9,0.301
+Midnights,Speak Now,74.5,0.255
+Midnights,Red,66.3,0.337
+Midnights,1989,74.2,0.258
+Midnights,reputation,77.6,0.224
+Midnights,Lover,71.8,0.282
+Midnights,folklore,76.3,0.237
+Midnights,evermore,78.3,0.217
+Midnights,Fearless (Taylor’s Version),60.7,0.393
+Midnights,Red (Taylor’s Version),65.2,0.348
+Midnights,Midnights,100.0,0.0
+Midnights,Speak Now (Taylor’s Version),52.7,0.473
+Midnights,1989 (Taylor’s Version),74.4,0.256
+Midnights,THE TORTURED POETS DEPARTMENT,71.4,0.286
+Speak Now (Taylor’s Version),Taylor Swift,66.6,0.334
+Speak Now (Taylor’s Version),Fearless,49.1,0.509
+Speak Now (Taylor’s Version),Speak Now,50.4,0.496
+Speak Now (Taylor’s Version),Red,74.3,0.257
+Speak Now (Taylor’s Version),1989,48.5,0.515
+Speak Now (Taylor’s Version),reputation,48.1,0.519
+Speak Now (Taylor’s Version),Lover,41.0,0.59
+Speak Now (Taylor’s Version),folklore,55.6,0.444
+Speak Now (Taylor’s Version),evermore,61.9,0.381
+Speak Now (Taylor’s Version),Fearless (Taylor’s Version),70.7,0.293
+Speak Now (Taylor’s Version),Red (Taylor’s Version),75.0,0.25
+Speak Now (Taylor’s Version),Midnights,52.7,0.473
+Speak Now (Taylor’s Version),Speak Now (Taylor’s Version),100.0,0.0
+Speak Now (Taylor’s Version),1989 (Taylor’s Version),54.3,0.457
+Speak Now (Taylor’s Version),THE TORTURED POETS DEPARTMENT,43.8,0.562
+1989 (Taylor’s Version),Taylor Swift,75.8,0.242
+1989 (Taylor’s Version),Fearless,80.7,0.193
+1989 (Taylor’s Version),Speak Now,77.0,0.23
+1989 (Taylor’s Version),Red,71.3,0.287
+1989 (Taylor’s Version),1989,84.7,0.153
+1989 (Taylor’s Version),reputation,79.3,0.207
+1989 (Taylor’s Version),Lover,80.8,0.192
+1989 (Taylor’s Version),folklore,81.9,0.181
+1989 (Taylor’s Version),evermore,73.0,0.27
+1989 (Taylor’s Version),Fearless (Taylor’s Version),72.6,0.274
+1989 (Taylor’s Version),Red (Taylor’s Version),69.2,0.308
+1989 (Taylor’s Version),Midnights,74.4,0.256
+1989 (Taylor’s Version),Speak Now (Taylor’s Version),54.3,0.457
+1989 (Taylor’s Version),1989 (Taylor’s Version),100.0,0.0
+1989 (Taylor’s Version),THE TORTURED POETS DEPARTMENT,79.7,0.203
+THE TORTURED POETS DEPARTMENT,Taylor Swift,65.8,0.342
+THE TORTURED POETS DEPARTMENT,Fearless,86.0,0.14
+THE TORTURED POETS DEPARTMENT,Speak Now,75.8,0.242
+THE TORTURED POETS DEPARTMENT,Red,57.4,0.426
+THE TORTURED POETS DEPARTMENT,1989,87.2,0.128
+THE TORTURED POETS DEPARTMENT,reputation,78.0,0.22
+THE TORTURED POETS DEPARTMENT,Lover,82.5,0.175
+THE TORTURED POETS DEPARTMENT,folklore,78.6,0.214
+THE TORTURED POETS DEPARTMENT,evermore,64.3,0.357
+THE TORTURED POETS DEPARTMENT,Fearless (Taylor’s Version),64.3,0.357
+THE TORTURED POETS DEPARTMENT,Red (Taylor’s Version),55.5,0.445
+THE TORTURED POETS DEPARTMENT,Midnights,71.4,0.286
+THE TORTURED POETS DEPARTMENT,Speak Now (Taylor’s Version),43.8,0.562
+THE TORTURED POETS DEPARTMENT,1989 (Taylor’s Version),79.7,0.203
+THE TORTURED POETS DEPARTMENT,THE TORTURED POETS DEPARTMENT,100.0,0.0

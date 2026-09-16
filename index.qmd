@@ -1,7 +1,65 @@
 ---
-title: "albums"
+title: "Taylor Swift Album Covers"
 ---
 
-This is a Quarto website.
+```{r}
+#| label: setup
+#| message: false
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+library(tidyverse)
+
+albums <- read_csv("data/albums.csv")
+```
+
+We downloaded album covers for Taylor Swift's studio albums from MusicBrainz.
+
+```{r}
+#| label: show-covers
+#| output: asis
+
+albums |>
+  arrange(year) |>
+  pwalk(\(album, year, mbid, file) {
+    cat(sprintf("![%s (%s)](%s){width=150px} ", album, year, file))
+  })
+```
+
+## Visual Similarity Analysis
+
+To compare color and layout, each cover was downsampled to a 16×16 pixel grid to capture broad shapes and color distribution. We then calculated the visual similarity percentage between every pair of albums.
+
+```{r}
+#| label: plot-similarity
+#| fig-width: 8
+#| fig-height: 7
+
+similarity <- read_csv("data/album_similarity.csv")
+
+# Heatmap showing similarity between all pairs
+ggplot(similarity, aes(x = album_1, y = album_2, fill = similarity_pct)) +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(name = "Similarity (%)") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 9),
+    axis.text.y = element_text(size = 9)
+  ) +
+  labs(
+    title = "Album Cover Visual Similarity Heatmap",
+    x = NULL,
+    y = NULL
+  )
+```
+
+### Top 5 Most Similar Pairs
+
+```{r}
+#| label: top-pairs
+
+similarity |>
+  filter(album_1 < album_2) |>
+  arrange(desc(similarity_pct)) |>
+  select(Album_1 = album_1, Album_2 = album_2, `Similarity (%)` = similarity_pct) |>
+  head(5)
+```
+
